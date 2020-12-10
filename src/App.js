@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TabSelector from './TabSelector';
+import TabSelector from './components/TabSelector';
 import './App.css';
 
 const Home = () => <p>This is the Home component!</p>;
@@ -19,15 +19,24 @@ class App extends Component {
     switch(this.state.activeId) {
       case 'home':
         return <Home />;
+      case "about":
+        return <About />
+      case "contact":
+        return <Contact />
       default:
         return <Error />;
     }
   }
 
+  handleChangeTab = (event) => {
+    const buttonId = event.target.id;
+    this.setState({ activeId: buttonId });
+  }
+
   render() {
     return (
       <div className="App">
-        <TabSelector />
+        <TabSelector activeId={this.state.activeId} handleChangeTab={this.handleChangeTab}/>
         <div className="App-content">
           {
             this.getTabContent()
